@@ -1015,8 +1015,8 @@
         <div class="loisir-card"><i class="fa fa-people-group"></i> Esprit d'équipe</div>
       </div>
       <div style="margin-top:1.5rem; padding:1.25rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);">
-        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">24 ans · Célibataire</p>
-        <p style="font-size:0.82rem; color:var(--text-muted);">Permis : —</p>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;"><span id="age"></span> ans · Célibataire</p>
+        <p style="font-size:0.82rem; color:var(--text-muted);">Permis : B</p>
       </div>
     </div>
   </div>
@@ -1061,6 +1061,16 @@
   document.querySelectorAll('.edu-card').forEach((el, i) => {
     el.style.transitionDelay = `${i * 0.07}s`;
   });
+
+  // Dynamic age
+  (function() {
+    const birth = new Date(1999, 3, 8); // 8 avril 1999
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+    document.getElementById('age').textContent = age;
+  })();
 
   // Hamburger menu
   const hamburger = document.getElementById('hamburger');
