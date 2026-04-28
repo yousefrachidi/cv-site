@@ -763,6 +763,81 @@
       #about > div { padding: 1.25rem !important; font-size: 0.9rem !important; }
     }
 
+    /* STATS STRIP */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 0 2rem;
+    }
+    .stat-item {
+      background: var(--surface);
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .stat-item:hover { background: var(--surface2); }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      font-weight: 500;
+    }
+
+    /* PROJECTS SECTION */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s, border-color 0.2s;
+    }
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card:hover { border-color: var(--accent); }
+    .project-card-header { display: flex; align-items: center; gap: 1rem; }
+    .project-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .project-icon.blue { background: rgba(88,166,255,0.15); color: var(--accent); }
+    .project-icon.green { background: rgba(63,185,80,0.15); color: var(--accent2); }
+    .project-icon.purple { background: rgba(163,113,247,0.15); color: #a371f7; }
+    .project-icon.orange { background: rgba(255,166,0,0.15); color: #f0883e; }
+    .project-name { font-weight: 700; font-size: 1rem; }
+    .project-company { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-top: 0.1rem; }
+    .project-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
+    .project-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 768px) {
+      .stats-strip { grid-template-columns: repeat(2, 1fr); margin: 0 1.25rem; }
+      .stat-number { font-size: 1.8rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
     /* PRINT / PDF */
     @media print {
       * { animation: none !important; transition: none !important; }
@@ -809,6 +884,7 @@
   <div class="nav-logo">YRA</div>
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav.about">Profil</a></li>
+    <li><a href="#projects" data-i18n="nav.projects">Projets</a></li>
     <li><a href="#experience" data-i18n="nav.experience">Expérience</a></li>
     <li><a href="#skills" data-i18n="nav.skills">Compétences</a></li>
     <li><a href="#education" data-i18n="nav.education">Formation</a></li>
@@ -824,6 +900,7 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" data-i18n="nav.about" onclick="closeMobileMenu()">Profil</a>
+  <a href="#projects" data-i18n="nav.projects" onclick="closeMobileMenu()">Projets</a>
   <a href="#experience" data-i18n="nav.experience" onclick="closeMobileMenu()">Expérience</a>
   <a href="#skills" data-i18n="nav.skills" onclick="closeMobileMenu()">Compétences</a>
   <a href="#education" data-i18n="nav.education" onclick="closeMobileMenu()">Formation</a>
@@ -864,6 +941,26 @@
   </div>
 </section>
 
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-number" id="stat-exp">4+</div>
+    <div class="stat-label" data-i18n="stat.exp">Ans d'expérience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">2</div>
+    <div class="stat-label" data-i18n="stat.apps">Apps en production</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">10+</div>
+    <div class="stat-label" data-i18n="stat.tech">Technologies maîtrisées</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">3</div>
+    <div class="stat-label" data-i18n="stat.lang">Langues parlées</div>
+  </div>
+</div>
+
 <hr class="divider" />
 
 <!-- ABOUT -->
@@ -872,6 +969,121 @@
   <h2 class="section-title" data-i18n="about.title">Profil</h2>
   <div style="max-width:700px; color:var(--text-muted); font-size:1rem; line-height:1.8; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:2rem;" data-i18n-html="about.text">
     Je suis <strong style="color:var(--text)">sérieux, dynamique, travailleur et extrêmement motivé</strong>. J'ai une forte volonté d'apprendre dans le domaine de l'informatique et je suis passionné par le travail associatif. Actuellement à la recherche d'une <strong style="color:var(--accent)">nouvelle opportunité en alternance</strong>, je suis déterminé à contribuer de manière significative et à continuer à développer mes compétences.
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label" data-i18n="proj.label">Réalisations</p>
+  <h2 class="section-title" data-i18n="proj.title">Projets & Applications</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-icon blue"><i class="fa fa-mobile-screen"></i></div>
+        <div>
+          <div class="project-name">BMCI ON</div>
+          <div class="project-company">BMCI Groupe BNP Paribas</div>
+        </div>
+      </div>
+      <p class="project-desc" data-i18n="proj1.desc">Application bancaire mobile Android & iOS — souscription, gestion de compte, demande de carte. Intégration SDK, tests unitaires, UI Testing.</p>
+      <div class="project-footer">
+        <div class="tags">
+          <span class="tag">Android Java</span><span class="tag">iOS Swift</span><span class="tag">MVVM</span>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.bnpparibas.bmci.BMCIOn" target="_blank" class="gplay-btn"
+           style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 0.8rem;background:var(--surface2);border:1px solid var(--border);border-radius:7px;text-decoration:none;color:var(--text);font-size:0.75rem;font-weight:600;">
+          <i class="fab fa-google-play" style="color:#01875f;"></i> Play Store
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-icon green"><i class="fa fa-chart-line"></i></div>
+        <div>
+          <div class="project-name">Digi Vente</div>
+          <div class="project-company">INDATACORE</div>
+        </div>
+      </div>
+      <p class="project-desc" data-i18n="proj2.desc">Application de prospection commerciale Android — souscription client, sélection d'offres, statistiques de vente en temps réel.</p>
+      <div class="project-footer">
+        <div class="tags">
+          <span class="tag">Android Java</span><span class="tag">Kotlin</span><span class="tag">Firebase</span>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=ma.iam.mobile.onboarding" target="_blank" class="gplay-btn"
+           style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 0.8rem;background:var(--surface2);border:1px solid var(--border);border-radius:7px;text-decoration:none;color:var(--text);font-size:0.75rem;font-weight:600;">
+          <i class="fab fa-google-play" style="color:#01875f;"></i> Play Store
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-icon purple"><i class="fa fa-lock"></i></div>
+        <div>
+          <div class="project-name">AppLock</div>
+          <div class="project-company">Freelance · Fiverr</div>
+        </div>
+      </div>
+      <p class="project-desc" data-i18n="proj3.desc">Application de sécurité Android — verrouillage d'applications, photos et vidéos avec code PIN ou empreinte digitale.</p>
+      <div class="project-footer">
+        <div class="tags">
+          <span class="tag">Kotlin</span><span class="tag">Android</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-icon orange"><i class="fa fa-music"></i></div>
+        <div>
+          <div class="project-name" data-i18n="proj4.name">Streaming Radio & Musique</div>
+          <div class="project-company">Freelance · Fiverr</div>
+        </div>
+      </div>
+      <p class="project-desc" data-i18n="proj4.desc">Site web de streaming radio et musique avec lecture en temps réel, gestion de playlists et interface utilisateur moderne.</p>
+      <div class="project-footer">
+        <div class="tags">
+          <span class="tag">Vue.js 3</span><span class="tag">NodeJS</span><span class="tag">PHP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-icon blue"><i class="fa fa-hospital"></i></div>
+        <div>
+          <div class="project-name" data-i18n="proj5.name">Cabinet Médical</div>
+          <div class="project-company" data-i18n="proj5.company">Projet Académique · Scrum</div>
+        </div>
+      </div>
+      <p class="project-desc" data-i18n="proj5.desc">Plateforme web de gestion de cabinet médical — prise de rendez-vous en ligne, gestion des patients, calendrier interactif.</p>
+      <div class="project-footer">
+        <div class="tags">
+          <span class="tag">Laravel 8</span><span class="tag">FullCalendar.js</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-icon green"><i class="fa fa-book-open"></i></div>
+        <div>
+          <div class="project-name" data-i18n="proj6.name">Lecteur E-Books</div>
+          <div class="project-company" data-i18n="proj6.company">Projet de fin d'études</div>
+        </div>
+      </div>
+      <p class="project-desc" data-i18n="proj6.desc">Application mobile Android de lecture et publication de livres et histoires électroniques avec système de favoris.</p>
+      <div class="project-footer">
+        <div class="tags">
+          <span class="tag">Xamarin.Android</span><span class="tag">PHP</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1261,7 +1473,7 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.timeline-item, .skill-card, .edu-card').forEach(el => observer.observe(el));
+  document.querySelectorAll('.timeline-item, .skill-card, .edu-card, .project-card').forEach(el => observer.observe(el));
 
   // Stagger skill cards
   document.querySelectorAll('.skill-card').forEach((el, i) => {
@@ -1317,6 +1529,18 @@
       'contact.sub': 'Je suis disponible pour une alternance dès maintenant.',
       'contact.btn': 'M\'écrire', 'footer.text': 'Conçu & développé par',
       'hero.download': 'Télécharger mon CV',
+      'stat.exp': 'Ans d\'expérience', 'stat.apps': 'Apps en production',
+      'stat.tech': 'Technologies maîtrisées', 'stat.lang': 'Langues parlées',
+      'proj.label': 'Réalisations', 'proj.title': 'Projets & Applications',
+      'nav.projects': 'Projets',
+      'proj1.desc': 'Application bancaire mobile Android & iOS — souscription, gestion de compte, demande de carte. Intégration SDK, tests unitaires, UI Testing.',
+      'proj2.desc': 'Application de prospection commerciale Android — souscription client, sélection d\'offres, statistiques de vente en temps réel.',
+      'proj3.desc': 'Application de sécurité Android — verrouillage d\'applications, photos et vidéos avec code PIN ou empreinte digitale.',
+      'proj4.name': 'Streaming Radio & Musique', 'proj4.desc': 'Site web de streaming radio et musique avec lecture en temps réel, gestion de playlists et interface utilisateur moderne.',
+      'proj5.name': 'Cabinet Médical', 'proj5.company': 'Projet Académique · Scrum',
+      'proj5.desc': 'Plateforme web de gestion de cabinet médical — prise de rendez-vous en ligne, gestion des patients, calendrier interactif.',
+      'proj6.name': 'Lecteur E-Books', 'proj6.company': 'Projet de fin d\'études',
+      'proj6.desc': 'Application mobile Android de lecture et publication de livres et histoires électroniques avec système de favoris.',
       'toast.copied': 'Email copié !', 'tab.away': '👋 Revenez voir mon portfolio !'
     },
     en: {
@@ -1362,6 +1586,18 @@
       'contact.sub': 'I am available and open to new opportunities right now.',
       'contact.btn': 'Contact me', 'footer.text': 'Designed & built by',
       'hero.download': 'Download my CV',
+      'stat.exp': 'Years of experience', 'stat.apps': 'Apps in production',
+      'stat.tech': 'Technologies mastered', 'stat.lang': 'Languages spoken',
+      'proj.label': 'Work', 'proj.title': 'Projects & Applications',
+      'nav.projects': 'Projects',
+      'proj1.desc': 'Android & iOS banking app — account management, card requests, onboarding. SDK integration, unit tests, UI Testing.',
+      'proj2.desc': 'Android sales prospecting app — client onboarding, offer selection, real-time sales statistics.',
+      'proj3.desc': 'Android security app — lock apps, photos and videos with PIN code or fingerprint.',
+      'proj4.name': 'Radio & Music Streaming', 'proj4.desc': 'Radio and music streaming website with real-time playback, playlist management and modern UI.',
+      'proj5.name': 'Medical Clinic', 'proj5.company': 'Academic Project · Scrum',
+      'proj5.desc': 'Medical clinic web platform — online appointment booking, patient management, interactive calendar.',
+      'proj6.name': 'E-Books Reader', 'proj6.company': 'Final Year Project',
+      'proj6.desc': 'Android mobile app for reading and publishing electronic books and stories with favorites system.',
       'toast.copied': 'Email copied!', 'tab.away': '👋 Come back to my portfolio!'
     }
   };
