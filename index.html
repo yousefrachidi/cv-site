@@ -638,16 +638,19 @@
 
       /* HERO */
       #hero {
-        flex-direction: column-reverse;
+        flex-direction: column;
         gap: 1.5rem;
         text-align: center;
+        min-height: unset;
         padding-top: 90px;
         padding-bottom: 3rem;
+        align-items: center;
       }
       .hero-text { display: flex; flex-direction: column; align-items: center; }
       .hero-badge {
         display: inline-flex !important;
-        margin-bottom: 1.2rem;
+        white-space: nowrap;
+        margin-bottom: 1rem;
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
@@ -673,11 +676,12 @@
       .hero-avatar {
         display: flex;
         justify-content: center;
+        order: -1;
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
       }
-      .avatar-ring { width: 140px; height: 140px; }
+      .avatar-ring { width: 120px; height: 120px; }
       .contact-chip { font-size: 0.78rem; padding: 0.4rem 0.75rem; }
 
       /* SECTIONS */
