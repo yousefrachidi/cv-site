@@ -4,6 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Youssef RACHIDI ALAOUI — Développeur Mobile</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Portfolio de Youssef RACHIDI ALAOUI — Développeur Mobile Android & iOS. 4+ ans d'expérience, BMCI BNP Paribas, INDATACORE. Disponible en alternance." />
+  <meta name="keywords" content="développeur mobile, Android, iOS, Java, Kotlin, Swift, MVVM, Firebase, Retrofit, Maroc, Casablanca" />
+  <meta name="author" content="Youssef RACHIDI ALAOUI" />
+
+  <!-- Open Graph (LinkedIn, WhatsApp, Facebook) -->
+  <meta property="og:title" content="Youssef RACHIDI ALAOUI — Développeur Mobile Android & iOS" />
+  <meta property="og:description" content="4+ ans d'expérience mobile · BMCI BNP Paribas · INDATACORE · Master Big Data & Cloud · Disponible en alternance" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="photo.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Youssef RACHIDI ALAOUI — Développeur Mobile" />
+  <meta name="twitter:description" content="Portfolio développeur mobile Android & iOS · Casablanca, Maroc" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -481,6 +497,67 @@
       50% { opacity: 0.4; }
     }
 
+    /* SCROLL TO TOP */
+    #scrollTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 42px;
+      height: 42px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 200;
+      box-shadow: 0 4px 16px rgba(88,166,255,0.3);
+    }
+    #scrollTop.visible { opacity: 1; transform: translateY(0); }
+    #scrollTop:hover { background: #79b8ff; }
+
+    /* NAV ACTIVE LINK */
+    .nav-links a.active { color: var(--accent); }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--surface2);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 300;
+      white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* PROGRESS BAR */
+    #progress {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 101;
+      transition: width 0.1s linear;
+    }
+
     /* HAMBURGER MENU */
     .nav-hamburger {
       display: none;
@@ -606,6 +683,10 @@
 </head>
 <body>
 
+<div id="progress"></div>
+<button id="scrollTop" aria-label="Retour en haut"><i class="fa fa-arrow-up"></i></button>
+<div id="toast">Email copié !</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">YRA</div>
@@ -640,7 +721,7 @@
     </p>
     <div class="hero-contacts">
       <a class="contact-chip" href="tel:+212648926394"><i class="fa fa-phone"></i> +212 648 926 394</a>
-      <a class="contact-chip" href="mailto:youssefrachidi161@gmail.com"><i class="fa fa-envelope"></i> youssefrachidi161@gmail.com</a>
+      <a class="contact-chip" href="mailto:youssefrachidi161@gmail.com" id="emailChip" title="Cliquer pour copier"><i class="fa fa-envelope"></i> youssefrachidi161@gmail.com</a>
       <a class="contact-chip" href="https://github.com/yousefrachidi" target="_blank"><i class="fab fa-github"></i> yousefrachidi</a>
       <a class="contact-chip" href="https://www.linkedin.com/in/youssef-rachidi-alaoui-08b254199/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
     </div>
@@ -1060,6 +1141,50 @@
 
   document.querySelectorAll('.edu-card').forEach((el, i) => {
     el.style.transitionDelay = `${i * 0.07}s`;
+  });
+
+  // Progress bar
+  const progressBar = document.getElementById('progress');
+  const scrollTopBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    progressBar.style.width = (scrolled / total * 100) + '%';
+    scrollTopBtn.classList.toggle('visible', scrolled > 400);
+  });
+  scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Nav active link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+
+  // Copy email to clipboard
+  const emailChip = document.getElementById('emailChip');
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  emailChip.addEventListener('click', (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText('youssefrachidi161@gmail.com').then(() => {
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    });
+  });
+
+  // Tab title flash when user leaves
+  const defaultTitle = document.title;
+  document.addEventListener('visibilitychange', () => {
+    document.title = document.hidden ? '👋 Revenez voir mon portfolio !' : defaultTitle;
   });
 
   // Dynamic age
