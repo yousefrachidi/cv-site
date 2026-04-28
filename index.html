@@ -162,9 +162,17 @@
     .contact-chip:hover { border-color: var(--accent); color: var(--accent); }
     .contact-chip i { font-size: 0.85rem; }
 
+    .hero-right {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      animation: fadeUp 0.6s 0.15s ease both;
+    }
+
     .hero-avatar {
       flex-shrink: 0;
-      animation: fadeUp 0.6s 0.15s ease both;
     }
 
     .avatar-ring {
@@ -672,14 +680,13 @@
         opacity: 1 !important;
         transform: none !important;
       }
-      .hero-avatar {
-        display: flex;
-        justify-content: center;
+      .hero-right {
         order: -1;
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
       }
+      .hero-avatar { display: flex; justify-content: center; }
       .avatar-ring { width: 120px; height: 120px; }
       .contact-chip { font-size: 0.78rem; padding: 0.4rem 0.75rem; }
 
@@ -770,9 +777,6 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-text">
-    <div class="hero-badge">
-      <span></span> <span data-i18n="hero.badge">Disponible pour alternance</span>
-    </div>
     <h1>Youssef<br /><span class="highlight">RACHIDI ALAOUI</span></h1>
     <p class="hero-sub" data-i18n="hero.sub">
       Développeur Mobile (Android / iOS) passionné, actuellement en Master Ingénierie Informatique — Big Data &amp; Cloud Computing à l'ENSET Mohammedia.
@@ -784,11 +788,16 @@
       <a class="contact-chip" href="https://www.linkedin.com/in/youssef-rachidi-alaoui-08b254199/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
     </div>
   </div>
-  <div class="hero-avatar">
-    <div class="avatar-ring">
-      <div class="avatar-inner">
-        <img src="photo.jpg" alt="Youssef RACHIDI ALAOUI" />
+  <div class="hero-right">
+    <div class="hero-avatar">
+      <div class="avatar-ring">
+        <div class="avatar-inner">
+          <img src="photo.jpg" alt="Youssef RACHIDI ALAOUI" />
+        </div>
       </div>
+    </div>
+    <div class="hero-badge">
+      <span></span> <span data-i18n="hero.badge">Disponible pour alternance</span>
     </div>
   </div>
 </section>
