@@ -1374,8 +1374,6 @@
     document.documentElement.lang = lang;
     document.getElementById('btnFr').classList.toggle('active', lang === 'fr');
     document.getElementById('btnEn').classList.toggle('active', lang === 'en');
-    const dlBtn = document.getElementById('cvDownload');
-    if (dlBtn) dlBtn.download = lang === 'fr' ? 'CV_Youssef_RACHIDI_ALAOUI.pdf' : 'Resume_Youssef_RACHIDI_ALAOUI.pdf';
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
       if (translations[lang][key] !== undefined) el.textContent = translations[lang][key];
