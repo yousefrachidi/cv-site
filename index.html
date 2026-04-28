@@ -763,6 +763,33 @@
       #about > div { padding: 1.25rem !important; font-size: 0.9rem !important; }
     }
 
+    /* PRINT / PDF */
+    @media print {
+      * { animation: none !important; transition: none !important; }
+      :root {
+        --bg: #fff; --surface: #f6f8fa; --surface2: #eef1f4;
+        --text: #111; --text-muted: #444; --border: #d0d7de; --accent: #0969da; --accent2: #1a7f37;
+      }
+      body { background: #fff; color: #111; font-size: 11pt; }
+      nav, .mobile-menu, #scrollTop, #progress, #toast,
+      .cv-download-btn, .lang-toggle, .divider, footer { display: none !important; }
+      section { padding: 1.2rem 0; max-width: 100%; page-break-inside: avoid; }
+      #hero { padding: 0 0 1.5rem; gap: 2rem; }
+      .avatar-ring { width: 110px; height: 110px; }
+      h1 { font-size: 22pt; }
+      .hero-sub { font-size: 10pt; }
+      .contact-chip { border: 1px solid var(--border); font-size: 9pt; padding: 0.3rem 0.6rem; }
+      .section-title { font-size: 14pt; margin-bottom: 1rem; }
+      .timeline::before { background: var(--border); }
+      .timeline-item { opacity: 1 !important; transform: none !important; page-break-inside: avoid; }
+      .skill-card, .edu-card { opacity: 1 !important; transform: none !important; }
+      .gplay-btn { display: none !important; }
+      .contact-strip { display: none !important; }
+      .hero-badge { border: 1px solid var(--border); }
+      .tag { border: 1px solid var(--border); background: var(--surface2); color: var(--accent); }
+      a { color: var(--accent); text-decoration: none; }
+    }
+
     @media (max-width: 420px) {
       h1 { font-size: 1.9rem; }
       .hero-badge { font-size: 0.72rem; }
