@@ -87,7 +87,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: -0.5px;
+      letter-spacing: 0;
     }
 
     .nav-links {
@@ -123,13 +123,15 @@
 
     /* HERO */
     #hero {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
       align-items: center;
-      padding: 152px 2rem 6rem;
-      max-width: 1100px;
+      padding: 132px 2rem 5rem;
+      max-width: 1160px;
       margin: 0 auto;
-      gap: 4rem;
+      gap: 3.5rem;
       position: relative;
+      min-height: 650px;
     }
 
     .hero-glow {
@@ -149,41 +151,49 @@
       bottom: 0; right: -80px;
     }
 
-    .hero-text { flex: 1; position: relative; z-index: 1; }
+    .hero-text { position: relative; z-index: 1; }
+
+    .hero-kicker {
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+      animation: fadeUp 0.6s ease both;
+    }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      background: rgba(124,108,253,0.1);
-      border: 1px solid rgba(124,108,253,0.3);
       color: var(--accent-light);
-      border-radius: 999px;
-      padding: 0.55rem 1.1rem;
-      font-size: 0.8rem;
+      font-size: 0.96rem;
       font-weight: 600;
-      margin-bottom: 1.5rem;
-      animation: fadeUp 0.6s ease both;
+      margin-top: 0.75rem;
+      animation: fadeUp 0.6s 0.15s ease both;
     }
 
     .hero-badge .badge-dot {
       width: 8px; height: 8px;
-      background: var(--green);
+      background: var(--cyan);
       border-radius: 50%;
       animation: pulse 1.8s infinite;
       flex-shrink: 0;
-      box-shadow: 0 0 8px rgba(52,211,153,0.7);
+      box-shadow: 0 0 8px rgba(34,211,238,0.7);
     }
 
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-size: clamp(2.6rem, 4.6vw, 4rem);
       font-weight: 700;
       line-height: 1.08;
-      letter-spacing: -1.5px;
+      letter-spacing: 0;
       animation: fadeUp 0.6s 0.1s ease both;
       color: var(--text);
     }
+
+    h1 .name-line { white-space: nowrap; }
 
     h1 .highlight {
       background: linear-gradient(135deg, var(--accent-light) 0%, var(--cyan) 100%);
@@ -193,79 +203,141 @@
     }
 
     .hero-sub {
-      margin-top: 1.25rem;
+      margin-top: 0.95rem;
       color: var(--text-muted);
-      font-size: 1.05rem;
+      font-size: 0.94rem;
       max-width: 520px;
-      line-height: 1.7;
-      animation: fadeUp 0.6s 0.2s ease both;
+      line-height: 1.75;
+      animation: fadeUp 0.6s 0.25s ease both;
     }
 
     .hero-contacts {
-      margin-top: 2rem;
+      margin-top: 1.6rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.65rem;
-      animation: fadeUp 0.6s 0.3s ease both;
+      animation: fadeUp 0.6s 0.35s ease both;
     }
 
     .contact-chip {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: rgba(13,21,38,0.8);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.5rem 0.9rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
+      justify-content: center;
+      gap: 0.55rem;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      border: 1px solid rgba(124,108,253,0.5);
+      border-radius: 999px;
+      padding: 0.72rem 1.65rem;
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #fff;
       text-decoration: none;
-      transition: border-color 0.25s, color 0.25s, box-shadow 0.25s;
-      backdrop-filter: blur(8px);
+      transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+      box-shadow: 0 12px 30px var(--accent-glow);
     }
 
     .contact-chip:hover {
-      border-color: rgba(124,108,253,0.5);
-      color: var(--accent-light);
-      box-shadow: 0 0 16px rgba(124,108,253,0.12);
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px var(--accent-glow);
     }
     .contact-chip i { font-size: 0.85rem; }
 
     .hero-right {
-      flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      gap: 0;
       animation: fadeUp 0.6s 0.15s ease both;
       position: relative;
       z-index: 1;
     }
 
-    .hero-avatar { flex-shrink: 0; }
-
-    .avatar-ring {
-      width: 224px; height: 224px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--cyan), var(--accent-light));
-      background-size: 200% 200%;
-      animation: gradient-shift 4s ease infinite;
-      padding: 3px;
+    .hero-avatar {
+      width: min(430px, 100%);
+      aspect-ratio: 1 / 1;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 48px var(--accent-glow);
+    }
+
+    .hero-avatar::before {
+      content: '';
+      position: absolute;
+      width: 92%;
+      height: 92%;
+      top: 1%;
+      left: 4%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--cyan), var(--accent-light));
+      box-shadow: 0 0 0 1px rgba(124,108,253,0.25), 0 28px 80px var(--accent-glow);
+    }
+
+    .avatar-ring {
+      width: 84%; height: 84%;
+      border-radius: 50%;
+      background: transparent;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: none;
+      position: relative;
+      z-index: 1;
     }
 
     .avatar-inner {
       width: 100%; height: 100%;
       border-radius: 50%;
-      background: var(--surface);
+      background: radial-gradient(circle at 50% 38%, rgba(34,211,238,0.28) 0%, rgba(124,108,253,0.26) 52%, rgba(13,21,38,0.95) 100%);
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
 
-    .avatar-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transform: none;
+      border-radius: 50%;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(150px, 1fr));
+      gap: 0.8rem;
+      width: min(360px, 90%);
+      margin-top: -2.8rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-stat-card {
+      background: #0b1125;
+      border: 1px solid var(--cyan);
+      border-radius: 22px;
+      padding: 0.85rem 1rem;
+      text-align: center;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    }
+
+    .hero-stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 0.95;
+    }
+
+    .hero-stat-label {
+      color: var(--accent-light);
+      font-size: 0.68rem;
+      line-height: 1.05;
+      margin-top: 0.2rem;
+    }
 
     /* SECTIONS */
     section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
@@ -286,7 +358,7 @@
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(1.7rem, 3vw, 2.3rem);
       font-weight: 700;
-      letter-spacing: -0.5px;
+      letter-spacing: 0;
       margin-bottom: 3rem;
       color: var(--text);
     }
@@ -762,6 +834,38 @@
     .project-card:hover { border-color: var(--border-bright); box-shadow: 0 0 30px var(--accent-glow); }
     .project-card:hover::after { transform: scaleX(1); }
     .project-card-header { display: flex; align-items: center; gap: 1rem; }
+    .project-media {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .timeline-logo {
+      width: min(220px, 100%);
+      height: 86px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .timeline-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
     .project-icon {
       width: 52px; height: 52px;
       border-radius: 14px;
@@ -786,21 +890,27 @@
       #progress { top: 60px; }
 
       #hero {
-        flex-direction: column; gap: 1.5rem;
+        grid-template-columns: 1fr; gap: 2rem;
         text-align: center; padding-top: 90px; padding-bottom: 3rem;
         align-items: center;
+        min-height: auto;
       }
       .hero-text { display: flex; flex-direction: column; align-items: center; }
+      .hero-kicker { margin-bottom: 0.6rem; }
       .hero-badge {
         display: inline-flex !important; white-space: nowrap;
-        margin-bottom: 1rem;
         animation: none !important; opacity: 1 !important; transform: none !important;
       }
       h1 { font-size: 2.2rem; animation: none !important; opacity: 1 !important; transform: none !important; }
       .hero-sub { font-size: 0.95rem; animation: none !important; opacity: 1 !important; transform: none !important; }
       .hero-contacts { justify-content: center; animation: none !important; opacity: 1 !important; transform: none !important; }
       .hero-right { order: -1; animation: none !important; opacity: 1 !important; transform: none !important; }
-      .avatar-ring { width: 130px; height: 130px; }
+      .hero-avatar { width: min(320px, 90vw); }
+      .avatar-ring { width: 84%; height: 84%; }
+      .hero-stats { margin-top: -2rem; width: min(330px, 92vw); }
+      .hero-stat-card { border-radius: 18px; padding: 0.72rem 0.8rem; }
+      .hero-stat-number { font-size: 1.45rem; }
+      h1 .name-line { white-space: normal; }
       .contact-chip { font-size: 0.78rem; padding: 0.4rem 0.75rem; }
 
       section { padding: 3rem 1.25rem; }
@@ -849,8 +959,10 @@
       .cv-download-btn, .lang-toggle, .divider, footer,
       .hero-glow { display: none !important; }
       section { padding: 1.2rem 0; max-width: 100%; page-break-inside: avoid; }
-      #hero { padding: 0 0 1.5rem; gap: 2rem; }
+      #hero { padding: 0 0 1.5rem; gap: 2rem; min-height: auto; }
       .avatar-ring { width: 110px; height: 110px; animation: none; box-shadow: none; }
+      .hero-avatar { width: 130px; }
+      .hero-stats { display: none; }
       h1 { font-size: 22pt; }
       .hero-sub { font-size: 10pt; }
       .contact-chip { border: 1px solid #ccc; font-size: 9pt; padding: 0.3rem 0.6rem; backdrop-filter: none; }
@@ -869,7 +981,9 @@
       h1 { font-size: 1.95rem; }
       .hero-badge { font-size: 0.72rem; }
       .contact-chip { font-size: 0.72rem; }
-      .avatar-ring { width: 115px; height: 115px; }
+      .hero-avatar { width: min(280px, 92vw); }
+      .avatar-ring { width: 84%; height: 84%; }
+      .hero-stats { grid-template-columns: 1fr 1fr; gap: 0.55rem; }
     }
   </style>
 </head>
@@ -912,15 +1026,19 @@
   <div class="hero-glow hero-glow-1"></div>
   <div class="hero-glow hero-glow-2"></div>
   <div class="hero-text">
-    <h1>Youssef<br /><span class="highlight">RACHIDI ALAOUI</span></h1>
+    <p class="hero-kicker" data-i18n="hero.kicker">Bonjour, je suis</p>
+    <h1>Youssef<br /><span class="name-line">RACHIDI ALAOUI</span></h1>
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span data-i18n="hero.badge">Développeur Mobile Android / iOS</span>
+    </div>
     <p class="hero-sub" data-i18n="hero.sub">
-      Développeur Mobile (Android / iOS) passionné, actuellement en Master Ingénierie Informatique — Big Data &amp; Cloud Computing à l'ENSET Mohammedia.
+      Développeur Mobile Android / iOS spécialisé dans la création d'applications performantes et modernes, diplômé d'un Master en Ingénierie Informatique — Big Data &amp; Cloud Computing à l'ENSET Mohammedia en 2025.
     </p>
     <div class="hero-contacts">
-      <a class="contact-chip" href="tel:+212648926394"><i class="fa fa-phone"></i> +212 648 926 394</a>
-      <a class="contact-chip" href="mailto:youssefrachidi161@gmail.com" id="emailChip" title="Cliquer pour copier"><i class="fa fa-envelope"></i> youssefrachidi161@gmail.com</a>
-      <a class="contact-chip" href="https://github.com/yousefrachidi" target="_blank"><i class="fab fa-github"></i> yousefrachidi</a>
-      <a class="contact-chip" href="https://www.linkedin.com/in/youssef-rachidi-alaoui-08b254199/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <a class="contact-chip" href="mailto:youssefrachidi161@gmail.com" id="emailChip" title="Cliquer pour copier">
+        <i class="fa fa-envelope"></i> <span data-i18n="contact.btn">M'écrire</span>
+      </a>
     </div>
     <div style="margin-top:1.5rem; animation: fadeUp 0.6s 0.35s ease both;">
       <a href="cv.pdf" download="CV_Youssef_RACHIDI_ALAOUI.pdf" id="cvDownload" class="cv-download-btn">
@@ -936,24 +1054,18 @@
         </div>
       </div>
     </div>
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      <span data-i18n="hero.badge">Disponible pour alternance</span>
+    <div class="hero-stats" aria-label="Statistiques rapides">
+      <div class="hero-stat-card">
+        <div class="hero-stat-number" id="stat-exp">4+</div>
+        <div class="hero-stat-label" data-i18n="stat.exp">Ans d'expérience</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-number">4+</div>
+        <div class="hero-stat-label" data-i18n="stat.apps">Apps en production</div>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- STATS STRIP -->
-<div class="stats-strip" style="grid-template-columns: repeat(2, 1fr);">
-  <div class="stat-item">
-    <div class="stat-number" id="stat-exp">4+</div>
-    <div class="stat-label" data-i18n="stat.exp">Ans d'expérience</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">3+</div>
-    <div class="stat-label" data-i18n="stat.apps">Apps en production</div>
-  </div>
-</div>
 
 <hr class="divider" />
 
@@ -1022,13 +1134,29 @@
 
     <div class="project-card">
       <div class="project-card-header">
+        <div class="project-icon green"><i class="fa fa-hand-holding-dollar"></i></div>
+        <div>
+          <div class="project-name">Tayssir</div>
+          <div class="project-company">INDATACORE</div>
+        </div>
+      </div>
+      <p class="project-desc" data-i18n="proj7.desc">Développement de l'application Tayssir, une plateforme numérique facilitant l'accès et l'inscription au programme social « Tayseer » grâce à une expérience utilisateur simple, fluide et efficace.</p>
+      <div class="project-footer">
+        <div class="tags">
+          <span class="tag">Android Java</span><span class="tag">Kotlin</span><span class="tag">MVVM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
         <div class="project-icon purple"><i class="fa fa-lock"></i></div>
         <div>
           <div class="project-name">AppLock</div>
           <div class="project-company">Freelance · Fiverr</div>
         </div>
       </div>
-      <p class="project-desc" data-i18n="proj3.desc">Application de sécurité Android — verrouillage d'applications, photos et vidéos avec code PIN ou empreinte digitale.</p>
+      <p class="project-desc" data-i18n="proj3.desc">Application Android développée en freelance pour sécuriser l'accès aux applications, photos et vidéos avec code PIN ou empreinte digitale.</p>
       <div class="project-footer">
         <div class="tags">
           <span class="tag">Kotlin</span><span class="tag">Android</span>
@@ -1100,7 +1228,7 @@
       <div class="timeline-card">
         <div class="timeline-header">
           <div>
-            <div class="timeline-title" data-i18n="exp1.title">Développeur Mobile Android / iOS</div>
+            <div class="timeline-title" data-i18n="exp1.title">BmciOn</div>
             <div class="timeline-company" data-i18n="exp1.company">Temps plein · BMCI Groupe BNP Paribas</div>
           </div>
           <span class="timeline-date" data-i18n="exp1.date">Déc 2022 – présent</span>
@@ -1144,7 +1272,7 @@
       <div class="timeline-card">
         <div class="timeline-header">
           <div>
-            <div class="timeline-title" data-i18n="exp2.title">Mobile Developer Android (Java / Kotlin)</div>
+            <div class="timeline-title" data-i18n="exp2.title">Digi Vente</div>
             <div class="timeline-company" data-i18n="exp2.company">Temps plein · INDATACORE</div>
           </div>
           <span class="timeline-date" data-i18n="exp2.date">Mars 2022 – présent</span>
@@ -1173,12 +1301,41 @@
     </div>
 
     <div class="timeline-item">
+      <div class="timeline-dot green"></div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-title" data-i18n="exp8.title">Tayssir</div>
+            <div class="timeline-company" data-i18n="exp8.company">Projet · INDATACORE</div>
+          </div>
+          <span class="timeline-date" data-i18n="exp2.date">Mars 2022 – présent</span>
+        </div>
+        <div class="timeline-desc">
+          <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;" data-i18n="exp2.location">Casablanca-Settat, Maroc</p>
+          <ul>
+            <li data-i18n="proj7.desc">Développement de l'application Tayssir, une plateforme numérique facilitant l'accès et l'inscription au programme social « Tayseer » grâce à une expérience utilisateur simple, fluide et efficace.</li>
+            <li data-i18n="exp8.li2">Conception d'un parcours d'inscription clair et accessible pour les bénéficiaires du programme.</li>
+          </ul>
+        </div>
+        <div class="timeline-logo">
+          <img src="tayssir.jpeg" alt="Application Tayssir" />
+        </div>
+        <div class="tags" style="margin-top:0.75rem;">
+          <span class="tag">Android Java</span>
+          <span class="tag">Kotlin</span>
+          <span class="tag">MVVM</span>
+          <span class="tag">UX Mobile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
       <div class="timeline-dot"></div>
       <div class="timeline-card">
         <div class="timeline-header">
           <div>
-            <div class="timeline-title" data-i18n="exp3.title">Développeur Android</div>
-            <div class="timeline-company">INDATACORE</div>
+            <div class="timeline-title" data-i18n="exp3.title">AppLock</div>
+            <div class="timeline-company">Freelance · Fiverr</div>
           </div>
           <span class="timeline-date" data-i18n="exp3.date">Nov 2021 – Fév 2022</span>
         </div>
@@ -1186,7 +1343,7 @@
           <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;" data-i18n="exp3.location">Casablanca, Maroc</p>
           <ul>
             <li data-i18n="exp3.li1">Conception et développement d'une application de téléchargement de vidéos (UX intuitive) — Kotlin.</li>
-            <li data-i18n-html="exp3.li2">Développement d'une application <strong>AppLock</strong> : couche de sécurité sur apps, photos, vidéos — Android Kotlin.</li>
+            <li data-i18n-html="exp3.li2">Développement de l'application <strong>AppLock</strong> en tant que freelance : couche de sécurité sur apps, photos, vidéos — Android Kotlin.</li>
           </ul>
         </div>
         <div class="tags"><span class="tag">Kotlin</span><span class="tag">Android</span><span class="tag">JSON</span></div>
@@ -1198,7 +1355,7 @@
       <div class="timeline-card">
         <div class="timeline-header">
           <div>
-            <div class="timeline-title" data-i18n="exp4.title">Développeur Full Stack — Stage</div>
+            <div class="timeline-title" data-i18n="exp4.title">Plateforme de crédit en ligne</div>
             <div class="timeline-company">Salafin</div>
           </div>
           <span class="timeline-date" data-i18n="exp4.date">Août 2021 – Oct 2021</span>
@@ -1218,27 +1375,7 @@
       <div class="timeline-card">
         <div class="timeline-header">
           <div>
-            <div class="timeline-title" data-i18n="exp5.title">Développeur Full Stack — Projet Académique</div>
-            <div class="timeline-company" data-i18n="exp5.company">Équipe Scrum</div>
-          </div>
-          <span class="timeline-date" data-i18n="exp5.date">Juin 2021 – Août 2021</span>
-        </div>
-        <div class="timeline-desc">
-          <p data-i18n="exp5.desc">Site web de cabinet médical : gestion des rendez-vous et inscription des patients (méthode Scrum).</p>
-        </div>
-        <div class="tags">
-          <span class="tag">Laravel 8</span><span class="tag">phpmailer</span>
-          <span class="tag">FullCalendar.js</span><span class="tag">Bootstrap</span><span class="tag">MySQL</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-card">
-        <div class="timeline-header">
-          <div>
-            <div class="timeline-title" data-i18n="exp6.title">Développeur Full Stack — Freelance</div>
+            <div class="timeline-title" data-i18n="exp6.title">Site de chaîne radio &amp; podcast</div>
             <div class="timeline-company">Fiverr</div>
           </div>
           <span class="timeline-date">Nov 2020 – Jan 2021</span>
@@ -1507,28 +1644,28 @@
     fr: {
       'nav.about': 'Profil', 'nav.experience': 'Expérience', 'nav.skills': 'Compétences',
       'nav.education': 'Formation', 'nav.contact': 'Contact',
-      'hero.badge': 'Disponible pour alternance',
-      'hero.sub': 'Développeur Mobile (Android / iOS) passionné, actuellement en Master Ingénierie Informatique — Big Data & Cloud Computing à l\'ENSET Mohammedia.',
+      'hero.kicker': 'Bonjour, je suis',
+      'hero.badge': 'Développeur Mobile Android / iOS',
+      'hero.sub': 'Développeur Mobile Android / iOS spécialisé dans la création d\'applications performantes et modernes, diplômé d\'un Master en Ingénierie Informatique — Big Data & Cloud Computing à l\'ENSET Mohammedia en 2025.',
       'about.label': 'À propos', 'about.title': 'Profil',
       'about.text': 'Je suis <strong style="color:var(--text)">sérieux, dynamique, travailleur et extrêmement motivé</strong>. J\'ai une forte volonté d\'apprendre dans le domaine de l\'informatique et je suis passionné par le travail associatif. Actuellement à la recherche d\'une <strong style="color:var(--accent)">nouvelle opportunité en alternance</strong>, je suis déterminé à contribuer de manière significative et à continuer à développer mes compétences.',
       'exp.label': 'Parcours', 'exp.title': 'Expérience & Projets',
-      'exp1.title': 'Développeur Mobile Android / iOS', 'exp1.company': 'Temps plein · BMCI Groupe BNP Paribas',
+      'exp1.title': 'BmciOn', 'exp1.company': 'Temps plein · BMCI Groupe BNP Paribas',
       'exp1.date': 'Déc 2022 – présent', 'exp1.location': 'Casablanca-Settat, Maroc · Sur site',
       'exp1.li1': 'Intégrer SDK', 'exp1.li2': 'Implémentation des interfaces',
       'exp1.li3': 'Création des tests unitaires', 'exp1.li4': 'Android Automated UI Testing',
-      'exp2.title': 'Mobile Developer Android (Java / Kotlin)', 'exp2.company': 'Temps plein · INDATACORE',
+      'exp2.title': 'Digi Vente', 'exp2.company': 'Temps plein · INDATACORE',
       'exp2.date': 'Mars 2022 – présent', 'exp2.location': 'Casablanca-Settat, Maroc',
       'exp2.li1': 'Développement d\'une application de <strong>prospection</strong> (Digi Vente) : souscription, choix d\'offres, statistiques.',
       'exp2.li2': 'Architecture MVVM, DataBinding, Retrofit, Firebase.',
-      'exp3.title': 'Développeur Android', 'exp3.date': 'Nov 2021 – Fév 2022', 'exp3.location': 'Casablanca, Maroc',
+      'exp8.title': 'Tayssir', 'exp8.company': 'Projet · INDATACORE',
+      'exp8.li2': 'Conception d\'un parcours d\'inscription clair et accessible pour les bénéficiaires du programme.',
+      'exp3.title': 'AppLock', 'exp3.date': 'Nov 2021 – Fév 2022', 'exp3.location': 'Casablanca, Maroc',
       'exp3.li1': 'Conception et développement d\'une application de téléchargement de vidéos (UX intuitive) — Kotlin.',
-      'exp3.li2': 'Développement d\'une application <strong>AppLock</strong> : couche de sécurité sur apps, photos, vidéos — Android Kotlin.',
-      'exp4.title': 'Développeur Full Stack — Stage', 'exp4.date': 'Août 2021 – Oct 2021',
+      'exp3.li2': 'Développement de l\'application <strong>AppLock</strong> en tant que freelance : couche de sécurité sur apps, photos, vidéos — Android Kotlin.',
+      'exp4.title': 'Plateforme de crédit en ligne', 'exp4.date': 'Août 2021 – Oct 2021',
       'exp4.desc': 'Développement d\'une plateforme permettant aux clients de souscrire à des crédits en ligne, avec méthodologie Scrum.',
-      'exp5.title': 'Développeur Full Stack — Projet Académique', 'exp5.company': 'Équipe Scrum',
-      'exp5.date': 'Juin 2021 – Août 2021',
-      'exp5.desc': 'Site web de cabinet médical : gestion des rendez-vous et inscription des patients (méthode Scrum).',
-      'exp6.title': 'Développeur Full Stack — Freelance',
+      'exp6.title': 'Site de chaîne radio & podcast',
       'exp6.desc': 'Création d\'un site web de streaming radio et musique.',
       'exp7.title': 'Développeur Android — Projet Académique', 'exp7.company': 'Projet de fin d\'études',
       'exp7.date': 'Mai 2020 – Juil 2020',
@@ -1553,7 +1690,8 @@
       'nav.projects': 'Projets',
       'proj1.desc': 'Application bancaire mobile Android & iOS — souscription, gestion de compte, demande de carte. Intégration SDK, tests unitaires, UI Testing.',
       'proj2.desc': 'Application de prospection commerciale Android — souscription client, sélection d\'offres, statistiques de vente en temps réel.',
-      'proj3.desc': 'Application de sécurité Android — verrouillage d\'applications, photos et vidéos avec code PIN ou empreinte digitale.',
+      'proj7.desc': 'Développement de l\'application Tayssir, une plateforme numérique facilitant l\'accès et l\'inscription au programme social « Tayseer » grâce à une expérience utilisateur simple, fluide et efficace.',
+      'proj3.desc': 'Application Android développée en freelance pour sécuriser l\'accès aux applications, photos et vidéos avec code PIN ou empreinte digitale.',
       'proj4.name': 'Streaming Radio & Musique', 'proj4.desc': 'Site web de streaming radio et musique avec lecture en temps réel, gestion de playlists et interface utilisateur moderne.',
       'proj5.name': 'Cabinet Médical', 'proj5.company': 'Projet Académique · Scrum',
       'proj5.desc': 'Plateforme web de gestion de cabinet médical — prise de rendez-vous en ligne, gestion des patients, calendrier interactif.',
@@ -1566,28 +1704,28 @@
     en: {
       'nav.about': 'Profile', 'nav.experience': 'Experience', 'nav.skills': 'Skills',
       'nav.education': 'Education', 'nav.contact': 'Contact',
-      'hero.badge': 'Open to new opportunities',
-      'hero.sub': 'Passionate Mobile Developer (Android / iOS), currently pursuing a Master\'s in Computer Engineering — Big Data & Cloud Computing at ENSET Mohammedia.',
+      'hero.kicker': 'Hello, I am',
+      'hero.badge': 'Mobile Developer Android / iOS',
+      'hero.sub': 'Mobile Android / iOS Developer specialized in building high-performance, modern applications, graduated with a Master\'s degree in Computer Engineering — Big Data & Cloud Computing from ENSET Mohammedia in 2025.',
       'about.label': 'About', 'about.title': 'Profile',
       'about.text': 'I am <strong style="color:var(--text)">serious, dynamic, hardworking and highly motivated</strong>. I have a strong desire to learn in the field of computer science and am passionate about collaborative work. Currently seeking a <strong style="color:var(--accent)">new work-study opportunity</strong>, I am determined to contribute meaningfully and continue growing my skills.',
       'exp.label': 'Career', 'exp.title': 'Experience & Projects',
-      'exp1.title': 'Mobile Developer Android / iOS', 'exp1.company': 'Full-time · BMCI Groupe BNP Paribas',
+      'exp1.title': 'BmciOn', 'exp1.company': 'Full-time · BMCI Groupe BNP Paribas',
       'exp1.date': 'Dec 2022 – present', 'exp1.location': 'Casablanca-Settat, Morocco · On-site',
       'exp1.li1': 'SDK Integration', 'exp1.li2': 'Interface Implementation',
       'exp1.li3': 'Unit Test Creation', 'exp1.li4': 'Android Automated UI Testing',
-      'exp2.title': 'Mobile Developer Android (Java / Kotlin)', 'exp2.company': 'Full-time · INDATACORE',
+      'exp2.title': 'Digi Vente', 'exp2.company': 'Full-time · INDATACORE',
       'exp2.date': 'Mar 2022 – present', 'exp2.location': 'Casablanca-Settat, Morocco',
       'exp2.li1': 'Development of a <strong>sales prospecting</strong> app (Digi Vente): onboarding, offer selection, statistics.',
       'exp2.li2': 'MVVM architecture, DataBinding, Retrofit, Firebase.',
-      'exp3.title': 'Android Developer', 'exp3.date': 'Nov 2021 – Feb 2022', 'exp3.location': 'Casablanca, Morocco',
+      'exp8.title': 'Tayssir', 'exp8.company': 'Project · INDATACORE',
+      'exp8.li2': 'Designed a clear and accessible registration flow for program beneficiaries.',
+      'exp3.title': 'AppLock', 'exp3.date': 'Nov 2021 – Feb 2022', 'exp3.location': 'Casablanca, Morocco',
       'exp3.li1': 'Design and development of a video downloader app (intuitive UX) — Kotlin.',
-      'exp3.li2': 'Development of an <strong>AppLock</strong> app: security layer for apps, photos, videos — Android Kotlin.',
-      'exp4.title': 'Full Stack Developer — Internship', 'exp4.date': 'Aug 2021 – Oct 2021',
+      'exp3.li2': 'Development of the <strong>AppLock</strong> application as a freelance project: security layer for apps, photos, videos — Android Kotlin.',
+      'exp4.title': 'Online Credit Platform', 'exp4.date': 'Aug 2021 – Oct 2021',
       'exp4.desc': 'Development of a platform enabling customers to apply for online loans using Scrum methodology.',
-      'exp5.title': 'Full Stack Developer — Academic Project', 'exp5.company': 'Scrum Team',
-      'exp5.date': 'Jun 2021 – Aug 2021',
-      'exp5.desc': 'Medical clinic website: appointment management and patient registration (Scrum method).',
-      'exp6.title': 'Full Stack Developer — Freelance',
+      'exp6.title': 'Radio & Podcast Channel Website',
       'exp6.desc': 'Creation of a radio and music streaming website.',
       'exp7.title': 'Android Developer — Academic Project', 'exp7.company': 'Final Year Project',
       'exp7.date': 'May 2020 – Jul 2020',
@@ -1612,7 +1750,8 @@
       'nav.projects': 'Projects',
       'proj1.desc': 'Android & iOS banking app — account management, card requests, onboarding. SDK integration, unit tests, UI Testing.',
       'proj2.desc': 'Android sales prospecting app — client onboarding, offer selection, real-time sales statistics.',
-      'proj3.desc': 'Android security app — lock apps, photos and videos with PIN code or fingerprint.',
+      'proj7.desc': 'Development of the Tayssir application, a digital platform that makes access and registration for the “Tayseer” social program simple, smooth, and efficient through a user-friendly experience.',
+      'proj3.desc': 'Android application developed as a freelance project to secure access to apps, photos, and videos with a PIN code or fingerprint.',
       'proj4.name': 'Radio & Music Streaming', 'proj4.desc': 'Radio and music streaming website with real-time playback, playlist management and modern UI.',
       'proj5.name': 'Medical Clinic', 'proj5.company': 'Academic Project · Scrum',
       'proj5.desc': 'Medical clinic web platform — online appointment booking, patient management, interactive calendar.',
